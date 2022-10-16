@@ -11,7 +11,7 @@ steps:
 - name: helm lint
   commands:
   - helm lint
-  image: docker.io/volkerraschek/helm:3.10.0
+  image: docker.io/volkerraschek/helm:3.10.1
   resources:
     limits:
       cpu: 50
@@ -29,7 +29,7 @@ steps:
 - name: helm template
   commands:
   - helm template .
-  image: docker.io/volkerraschek/helm:3.10.0
+  image: docker.io/volkerraschek/helm:3.10.1
   resources:
     limits:
       cpu: 150
@@ -81,7 +81,7 @@ steps:
       from_secret: helm_repo_password
     HELM_REPO_USERNAME:
       from_secret: helm_repo_username
-  image: docker.io/volkerraschek/helm:3.10.0
+  image: docker.io/volkerraschek/helm:3.10.1
   resources:
     limits:
       cpu: 150
