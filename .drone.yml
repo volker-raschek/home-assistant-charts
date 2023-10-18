@@ -17,7 +17,7 @@ steps:
 - name: helm lint
   commands:
   - helm lint
-  image: git.cryptic.systems/volker.raschek/helm:3.13.0
+  image: git.cryptic.systems/volker.raschek/helm:3.13.1
   resources:
     limits:
       cpu: 50
@@ -35,7 +35,7 @@ steps:
 - name: helm template
   commands:
   - helm template .
-  image: git.cryptic.systems/volker.raschek/helm:3.13.0
+  image: git.cryptic.systems/volker.raschek/helm:3.13.1
   resources:
     limits:
       cpu: 150
@@ -93,7 +93,7 @@ steps:
       from_secret: helm_repo_password
     HELM_REPO_USERNAME:
       from_secret: helm_repo_username
-  image: git.cryptic.systems/volker.raschek/helm:3.13.0
+  image: git.cryptic.systems/volker.raschek/helm:3.13.1
   resources:
     limits:
       cpu: 150
