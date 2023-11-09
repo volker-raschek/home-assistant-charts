@@ -37,6 +37,14 @@ ingress:
 
 nodeSelector: {}
 
+persistentStorage:
+  enabled: false
+  existingClaim: ""
+  annotations: {}
+  labels: {}
+  storageClass:
+  size: 15Gi
+
 podAnnotations: {}
 
 podPriorityClassName: ""
@@ -70,13 +78,3 @@ service:
   port: 8123
 
 tolerations: []
-
-volumeMounts: []
-# - name: config
-#   mountPath: /config
-
-volumes: []
-# - name: config
-#   hostPath:
-#     path: /etc/homeassistant
-#     type: DirectoryOrCreate

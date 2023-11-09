@@ -48,9 +48,10 @@ spec:
           {{- toYaml .Values.resources | nindent 12 }}
         securityContext:
           {{- toYaml .Values.securityContext | nindent 12 }}
-        {{- with .Values.volumeMounts }}
-        volumeMounts:
-          {{- toYaml . | nindent 8 }}
+        {{- if .Values.persistentStorage.enabled }}
+        volumes:
+        - name: config
+          mountPath: /config
         {{- end }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -69,7 +70,15 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      {{- if .Values.persistentStorage.enabled }}
       volumes:
-      {{- with .Values.volumes }}
-        {{- toYaml . | nindent 6 }}
+      {{- if .Values.persistentStorage.existingClaim }}
+      - name: config
+        persistentVolumeClaim:
+          claimName: {{ .Values.persistentStorage.existingClaim }}
+      {{- else }}
+      - name: config
+        persistentVolumeClaim:
+          claimName: {{ include "homeassistant.fullname" . }}
+      {{- end }}
       {{- end }}

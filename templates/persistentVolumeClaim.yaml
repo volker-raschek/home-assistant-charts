@@ -1,0 +1,24 @@
+{{- if .Values.persistentStorage.enabled }}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  {{- with .Values.persistentStorage.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  name: {{ include "homeassistant.fullname" . }}
+  labels:
+    {{- include "homeassistant.labels" . | nindent 4 }}
+    {{- with .Values.persistentStorage.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+spec:
+  accessModes:
+  - ReadWriteOnce
+  {{- if .Values.persistentStorage.storageClass }}
+  storageClassName: {{ .Values.persistentStorage.storageClass }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ required "Require size of persistent volume claim" .Values.persistentStorage.size }}
+{{- end }}
