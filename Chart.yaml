@@ -3,7 +3,7 @@ name: homeassistant
 description: Helm chart for homeassistant
 type: application
 version: "0.1.0"
-appVersion: "2023.11.3"
+appVersion: "2023.12.4"
 icon: https://upload.wikimedia.org/wikipedia/commons/6/6e/Home_Assistant_Logo.svg
 
 keywords:
