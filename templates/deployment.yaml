@@ -49,7 +49,7 @@ spec:
         securityContext:
           {{- toYaml .Values.securityContext | nindent 12 }}
         {{- if .Values.persistentStorage.enabled }}
-        volumes:
+        volumeMounts:
         - name: config
           mountPath: /config
         {{- end }}
