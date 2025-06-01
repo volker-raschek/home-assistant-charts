@@ -1,6 +1,5 @@
 # homeassistant-charts
 
-[![Build Status](https://drone.cryptic.systems/api/badges/volker.raschek/homeassistant-charts/status.svg)](https://drone.cryptic.systems/volker.raschek/homeassistant-charts)
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/volker-raschek)](https://artifacthub.io/packages/search?repo=volker-raschek)
 
 This is a helm chart for [homeassistant](https://github.com/morpheus65535/homeassistant/).
