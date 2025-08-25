@@ -1,26 +1,14 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "assignees": [ "volker.raschek" ],
-  "labels": [ "renovate" ],
-  "packageRules": [
-    {
-      "addLabels": [ "renovate/homeassistant", "renovate/automerge" ],
-      "automerge": true,
-      "matchManagers": "droneci",
-      "matchUpdateTypes": [ "minor", "patch"]
-    },
-    {
-      "addLabels": [ "renovate/homeassistant", "renovate/automerge" ],
-      "automerge": false,
-      "matchPackageNames": [ "homeassistant" ],
-      "matchManagers": [ "regex" ]
-    }
+  "extends": [
+    "local>volker.raschek/renovate-config:default#master",
+    "local>volker.raschek/renovate-config:container#master",
+    "local>volker.raschek/renovate-config:actions#master",
+    "local>volker.raschek/renovate-config:npm#master",
+    "local>volker.raschek/renovate-config:regexp#master"
   ],
-  "rebaseLabel": "renovate/rebase",
-  "rebaseWhen": "behind-base-branch",
-  "regexManagers": [
+  "customManagers": [
     {
-      "description": "Update container image reference",
       "fileMatch": [
         "^Chart\\.yaml$"
       ],
@@ -28,8 +16,53 @@
         "appVersion: \"(?<currentValue>.*?)\"\\s+"
       ],
       "datasourceTemplate": "docker",
-      "depNameTemplate": "homeassistant",
-      "lookupNameTemplate": "docker.io/homeassistant/home-assistant"
+      "depNameTemplate": "homeassistant/home-assistant",
+      "lookupNameTemplate": "docker.io/homeassistant/home-assistant",
+      "versioningTemplate": "semver"
+    },
+    {
+      "fileMatch": ["^README\\.md$"],
+      "matchStrings": [
+        "CHART_VERSION=(?<currentValue>.*)"
+      ],
+      "depNameTemplate": "volker.raschek/homeassistant-charts",
+      "packageNameTemplate": "https://git.cryptic.systems/volker.raschek/homeassistant-charts",
+      "datasourceTemplate": "git-tags",
+      "versioningTemplate": "semver"
+    }
+  ],
+  "packageRules": [
+    {
+      "addLabels": [
+        "renovate/automerge",
+        "renovate/container"
+      ],
+      "automerge": true,
+      "excludePackagePatterns": [
+        "homeassistant/home-assistant"
+      ],
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ]
+    },
+    {
+      "addLabels": [
+        "renovate/automerge",
+        "renovate/documentation"
+      ],
+      "automerge": true,
+      "matchDepNames": [
+        "volker.raschek/homeassistant-charts"
+      ],
+      "matchUpdateTypes": [
+        "major",
+        "minor",
+        "patch"
+      ]
     }
   ]
 }
